@@ -19,44 +19,120 @@ Classes?
 
 # Pseudocode
 
-## Game/Match/Grid Class
-class TicTacToe
+## Summary
+Objects:
+
+- TicTacToe (the app)
+    - Model: 
+        - number of rounds
+        - tracks first turn
+    - View:
+        - displays title? (may just make in HTML
+        - displays reset button
+    - Controller:
+        - button to reset stats 
+        - calls for new Players
+        - calls for new Rounds
+
+- Player (each player; child of TicTacToe?)
+    - Model:
+        - tracks player name
+        - tracks player score
+    - View:
+        - displays and updates player name on entry
+        - displays and updates player score every win
+    - Controller:
+        - update player score each win
+        - update name when inputted
+
+- Round (Board/Match/Grid; child of TicTacToe?)
+    - Model:
+        - tracks tile values (array)
+        - tracks whose turn
+        - tracks number of moves
+    - View:
+        - display grid
+        - update after each move
+    - Controller:
+        - changes tile values based on click events
+        - checks for win/tie conditions
+
+- Tile? (child of Game; may not be needed)
+    - Model:
+        - tracks tile value
+        - tracks player who clicked it
+    - View:
+        - updates tile view to X or O
+    - Controller:
+        - changes tile value based on click event
+        - make tile unclickable after move is made on it
+
+## Class: TicTacToe
+    class TicTacToe
+
+### Model
+    contructor()
+        player1 - Player obj; null
+        player2 - Player obj; null
+        roundNum - int; 0
+        firstTurn - true/false (alternate turns on match)
+
+### View
+
+### Controller
+    resetTicTacToe()
+        resets names to null
+        scores to 0
+        number of rounds to 0
+        player turn to true
+    changeTurnOrder
+        switches first turn order
+
+## Class: Player
+    class Player
 
 ### Model
     constructor()
-        gameState? - boolean; true? why does game need to be active/not active?
-        matchNum - int; 0
-        turnNum - int; 0
-        playerTurn - int; 0
-        grid - array; 1d or 2d of 0s
-            - [0, 0, 0, 0, 0, 0, 0, 0, 0]
-            - or [ [0, 0, 0],
-                   [0, 0, 0],
-                   [0, 0, 0] ]
-        player1Name - str; null
-        player2Name - str; null
-        player1Score - int; 0
-        player2Score - intl 0
-
+        playerName - str; null
+        playerScore - int; 0
 
 ### View
-    generateHTML
-        ** work on this after logic? **
+
 ### Controller
-    nextMatch()
-        increment matchNum by 1
-    nextTurn()
-        increment turnNum by 1
-    playerTurn(turnNum)
-        based on turn number, whose turn is it
-    setPlayer1()
-        take HTML input to set player1Name
-    setPlayer2()
-        same as setPlayer1, maybe merge and take argument?
+    setPlayerName()
+        gets name for player
+    updateScore()
+        updates score for each win
+
+## Class: Round
+    class Round
+
+### Model
+    constructor(firstTurn)
+        grid - array; [0, 0, 0,
+                       0, 0, 0,
+                       0, 0, 0]
+        whoseTurn - boolean; true
+        turnNum - int; 0
+
+### View
+    displayBoard()
+        displays board on screen
+    displayWin()
+        displays win screen with player stats
+    displayTie()
+        displays tie screen
+
+### Controller
+    updateTile()
+        updates index value in grid based on click events
+        - if player 1 clicks, increment by 1
+        - if player 2 clicks, decrement by 1
+        - increment turnNum after each accepted click
     checkWin()
-        check grid (maybe only after 5th turn?) against possible win conditions
-        win conditions are win a row/column/diagonal adds up to 3 or -3
-        - in 1d, win conditions are
+        checks grid (maybe after 5th turn?) against possible win conditions
+        win conditions are when a row/column/diagonal adds up to 3 or -3
+        - in a 1d grid, win conditions are
 
             grid[0] + grid[1] + grid[2] = 3 or -3
                +         +         +
@@ -71,11 +147,17 @@ class TicTacToe
             grid[0] + grid[4] + grid[8] = 3 or -3
             grid[2] + grid[4] + grid[6] = 3 or -3
 
-    assignBlock()
-        set element in grid to 1 or -1 based on playerTurn/turnNum?
+        if 3 is positive, player 1 wins
+            increment player1 score by 1
+        if 3 is negative, plauer 2 wins
+            increment player2 score by 1
 
+        if turnNum goes past 9, return tie
 
+## Class: Tile
 
+### Model
 
-    
+### View
 
+### Controller
