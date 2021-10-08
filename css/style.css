@@ -1,0 +1,35 @@
+#title {
+    font-family: 'Montserrat', sans-serif;
+}
+
+#container {
+    padding-left: 5%;
+    padding-right: 5%;
+}
+
+.btn-sq-sm {
+    border-radius: 0;
+    width: 150px !important;
+    height: 150px !important;
+}
+
+.btn-sq {
+    border-radius: 0;
+    width: 33.33%;
+    height: 30vw;
+    font-size: 33.33vw;
+    line-height: 25vw;
+}
+
+/* .btn.btn-square {
+    border-radius: 0;
+    height: 25vw;
+    max-height: 200px;
+    min-height: 200px;
+    width: 100%;
+    font-size: 4vw;;
+}
+
+.row.customWidth {
+    max-width: 642px;
+} */
