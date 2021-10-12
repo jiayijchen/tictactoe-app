@@ -33,6 +33,10 @@ class TicTacToe {
         generateHTML({ type: "div", classes: "col-6 fw-bold", id: "player1Score", text: `${this.player1Score}`, parent: scoreRow });
         generateHTML({ type: "div", classes: "col-6 fw-bold", id: "player2Score", text: `${this.player2Score}`, parent: scoreRow });
         this.generateBoard();
+        button.onclick = () => {
+            this.resetApp();
+        };
+        button.innerText = "Reset";
     }
 
     resetApp() {
@@ -43,8 +47,18 @@ class TicTacToe {
         this.turnNum = 0;
         this.firstTurn = true;
         this.whoseTurn = this.firstTurn;
-        button.onclick = this.init();
-        // container.innerText = "";
+        while (scoreRow.firstChild) {
+            scoreRow.removeChild(scoreRow.firstChild);
+        }
+        while (boardRow.firstChild) {
+            boardRow.removeChild(boardRow.firstChild);
+        }
+        while (msgRow.firstChild) {
+            msgRow.removeChild(msgRow.firstChild);
+        }
+        button.onclick = this.init.bind(this);
+        button.innerText = "Play";
+        console.log(button.onclick);
     }
 
     updateScores() {
@@ -151,7 +165,7 @@ class TicTacToe {
         this.firstTurn = !this.firstTurn;
         this.whoseTurn = this.firstTurn;
         this.turnMsg();
-        console.log(this.roundNum);
+        // console.log(this.roundNum);
         msg2.innerText = `Round ${this.roundNum}`;
     }
 }
@@ -171,8 +185,6 @@ function init() {
     let instance = new TicTacToe();
     button.addEventListener("click", function () {
         instance.init();
-        button.innerText = "Reset";
-        // button.onclick = instance.resetApp();
     });
 }
 
