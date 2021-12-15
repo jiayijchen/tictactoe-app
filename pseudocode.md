@@ -17,7 +17,7 @@ Classes?
     Board/Grid
     "Blocks"
 
-# Pseudocode
+# Pseudocode: Multiclass
 
 ## Summary
 Objects:
@@ -45,9 +45,12 @@ Objects:
         - update player score each win
         - update name when inputted
 
-- Round (Board/Match/Grid; child of TicTacToe?)
+- Game (Board/Match/Grid; child of TicTacToe?)
     - Model:
         - tracks tile values (array)
+            - 0 = unused tile
+            - 1 = "X"-clicked tile
+            - -1 = "O"-clicked tile
         - tracks whose turn
         - tracks number of moves
     - View:
@@ -74,42 +77,63 @@ Objects:
     contructor()
         player1 - Player obj; null
         player2 - Player obj; null
+        currentRound - Game obj; null
         roundNum - int; 0
         firstTurn - true/false (alternate turns on match)
 
 ### View
+    displayTicTacToe()
+        creates div row for gameMsg
+        creates div row
+            displayPlayer(player1)
+            displayGame(currentGame)
+            displayPlayer(player2)
+        creates div row for reset button
+
 
 ### Controller
-    resetTicTacToe()
-        resets names to null
-        scores to 0
-        number of rounds to 0
-        player turn to true
+    init() (also used to reset app)
+        resets players to null
+        resets currentGame to null
+        resets roundNum to 0
+        resets firstTurn to true
+        call getPlayers
+        call newGame
     changeTurnOrder
         switches first turn order
+    getPlayers()
+        creates two Player objects
+    newGame()
+        creates new Game
+    nextRound()
+        call newGame
+        call changeTurnOrder
+    
 
 ## Class: Player
     class Player
 
 ### Model
     constructor()
-        playerName - str; null
-        playerScore - int; 0
+        name - str; null
+        score - int; 0
 
 ### View
+    displayPlayer()
+        creates div column with name and score
 
 ### Controller
-    setPlayerName()
+    setPlayerName(name)
         gets name for player
-    updateScore()
-        updates score for each win
+    addPoint()
+        increment player score by 1;
 
-## Class: Round
-    class Round
+## Class: Game
+    class Game
 
 ### Model
     constructor(firstTurn)
-        grid - array; [0, 0, 0,
+        board - array; [0, 0, 0,
                        0, 0, 0,
                        0, 0, 0]
         whoseTurn - boolean; true
@@ -161,3 +185,35 @@ Objects:
 ### View
 
 ### Controller
+
+# Pseudocode: Singleton
+
+## Summary
+Objects:
+
+- TicTacToe (the app)
+
+## Class: TicTacToe
+    class TicTacToe
+
+## Model (tracks state)
+    constructor()
+        player1Name =
+        player1Score
+        player2Name
+        player2Score
+        roundNum
+        turnNum
+        whoseTurn
+        grid (array)
+
+## View (displays content)
+
+## Controller (changes state)
+    setPlayer1()
+        sets player1Name
+    setPlayer2()
+        sets player2Name
+    nextRound()
+        increment roundNum by 1
+    update
